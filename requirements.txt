@@ -1,0 +1,22 @@
+# CollectiveBrain V1 Requirements
+
+# Core dependencies (no external services needed for basic mode)
+# These are optional for production integrations:
+
+# Redis (for SessionMemory in production)
+# redis>=4.5.0
+
+# Neo4j (for RelationalMemory in production)  
+# neo4j>=5.0.0
+
+# Milvus (for SemanticMemory in production)
+# pymilvus>=2.3.0
+
+# OpenAI/LLM integration (for LLM-driven decomposition)
+# openai>=1.0.0
+
+# HTTP client
+httpx>=0.25.0
+
+# Type hints
+typing-extensions>=4.0.0
