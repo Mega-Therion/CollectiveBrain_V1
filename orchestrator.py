@@ -8,6 +8,13 @@ import uuid
 from typing import Dict, List, Any
 from datetime import datetime
 
+# Try to import LLM client for intelligent decomposition
+try:
+    from llm_client import decompose_with_llm
+    LLM_AVAILABLE = True
+except ImportError:
+    LLM_AVAILABLE = False
+
 
 class Orchestrator:
     """Main orchestrator that decomposes objectives and manages task distribution."""
@@ -30,12 +37,18 @@ class Orchestrator:
         task_id = str(uuid.uuid4())
         timestamp = datetime.utcnow().isoformat()
         
-        # Placeholder: Later replace with LLM-driven decomposition via GitHub Models
-        sub_goals = [
-            f"Research requirements for: {objective}",
-            f"Design architecture for: {objective}",
-            f"Create implementation plan for: {objective}",
-        ]
+        # Use LLM for intelligent decomposition if available
+        if LLM_AVAILABLE:
+            sub_goals = decompose_with_llm(objective, max_goals)
+        else:
+            # Fallback to template-based decomposition
+            sub_goals = [
+                f"Research requirements for: {objective}",
+                f"Design architecture for: {objective}",
+                f"Create implementation plan for: {objective}",
+                f"Implement and test: {objective}",
+                f"Document and deploy: {objective}"
+            ][:max_goals]
         
         task_data = {
             "task_id": task_id,
