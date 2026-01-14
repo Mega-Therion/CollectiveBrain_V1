@@ -8,7 +8,7 @@
 
 ## 🧠 Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                      Orchestrator                            │
 │  Decomposes objectives → 3-5 sub-goals → Assigns to workers │
@@ -82,7 +82,7 @@ docker-compose --profile production up -d
 ## 📦 Modules
 
 | Module | Description |
-|--------|-------------|
+| ------ | ----------- |
 | `orchestrator.py` | Decomposes objectives into sub-goals using LLM |
 | `worker_pool.py` | Specialized worker agents (Research, Finance, Analysis) |
 | `memory_layer.py` | 4-tier memory (Working, Session, Semantic, Relational) |
@@ -108,7 +108,7 @@ NEO4J_URI=bolt://localhost:7687
 ### LLM Providers
 
 | Provider | Token Variable | Best For |
-|----------|---------------|----------|
+| -------- | -------------- | -------- |
 | **GitHub Models** | `GITHUB_TOKEN` | Free, recommended |
 | **OpenAI** | `OPENAI_API_KEY` | Production quality |
 | **Azure OpenAI** | `AZURE_OPENAI_API_KEY` | Enterprise |
@@ -129,11 +129,13 @@ python main.py orchestrate "Test objective for CI"
 ## 🐳 Docker
 
 ### Build
+
 ```bash
 docker build -t collectivebrain .
 ```
 
 ### Run
+
 ```bash
 # Interactive orchestration
 docker run -it --rm collectivebrain orchestrate "Build an API"
@@ -144,20 +146,21 @@ docker run -it --rm collectivebrain status
 
 ### Docker Compose Profiles
 
-| Profile | Services | Use Case |
-|---------|----------|----------|
-| (default) | brain | Local development |
-| `production` | brain, redis, milvus, etcd, minio | Production deployment |
+| Profile       | Services                          | Use Case              |
+| ------------- | --------------------------------- | --------------------- |
+| (default)     | brain                             | Local development     |
+| `production`  | brain, redis, milvus, etcd, minio | Production deployment |
 
 ## 🔐 DCBFT Consensus Protocol
 
 The consensus engine implements the Byzantine Fault Tolerance formula:
 
-```
+```text
 N >= 3f + 1
 ```
 
 Where:
+
 - **N** = Total number of agents
 - **f** = Maximum faulty/Byzantine agents tolerated
 - **Quorum** = ~66% (super-majority required)
@@ -190,7 +193,7 @@ print(f"Result: {result['decision']}")  # consensus_reached
 
 ## 📁 Project Structure
 
-```
+```text
 CollectiveBrain_V1/
 ├── main.py              # CLI entry point
 ├── orchestrator.py      # Objective decomposition
@@ -237,19 +240,19 @@ python api.py
 
 ### Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/health` | Health check |
-| GET | `/status` | System status |
-| POST | `/orchestrate` | Decompose & execute objective |
-| POST | `/consensus/initiate` | Start a DCBFT vote |
-| POST | `/consensus/{id}/vote` | Cast a vote |
-| POST | `/consensus/{id}/tally` | Tally and get result |
-| POST | `/memory/working` | Add to working memory |
-| GET | `/memory/status` | Memory layer status |
-| GET | `/workers` | List worker pool |
+| Method | Endpoint                 | Description                   |
+| ------ | ------------------------ | ----------------------------- |
+| GET    | `/health`                | Health check                  |
+| GET    | `/status`                | System status                 |
+| POST   | `/orchestrate`           | Decompose & execute objective |
+| POST   | `/consensus/initiate`    | Start a DCBFT vote            |
+| POST   | `/consensus/{id}/vote`   | Cast a vote                   |
+| POST   | `/consensus/{id}/tally`  | Tally and get result          |
+| POST   | `/memory/working`        | Add to working memory         |
+| GET    | `/memory/status`         | Memory layer status           |
+| GET    | `/workers`               | List worker pool              |
 
-### Example
+### API Example
 
 ```bash
 # Orchestrate an objective
